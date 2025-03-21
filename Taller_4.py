@@ -9,8 +9,14 @@ def create_users(name,telefono,email,ciudad,direccion):
 def leer_users():
     cur.execute("SELECT * FROM users")
     return cur.fetchall()
-def actualizar_users(id,name,telefono,email,ciudad,direccion):
-    cur.execute("UPDATE users SET name =?,telefono=? ,email=?,ciudad=?,direccion=? WHERE id =?",(name,telefono,email,ciudad,direccion,id))
+def actualizar_users(id,telefono,email,ciudad,direccion):
+    cur.execute("UPDATE users SET telefono=? ,email=?,ciudad=?,direccion=? WHERE id =?",(telefono,email,ciudad,direccion,id))
+    con.commit()
+def actualizar_telefono(id,telefono):
+    cur.execute("UPDATE users SET telefono=? WHERE id =?",(telefono,id))
+    con.commit()
+def actualizar_email(id,email):
+    cur.execute("UPDATE users SET email=? WHERE id =?",(email,id))
     con.commit()
 def borrar_users(id):
     cur.execute("DELETE FROM users WHERE id =?",(id,))
@@ -37,8 +43,27 @@ Que te gustaria hacer en la base de datos.
         print(leer_users())
         continue
     elif x==3:
-        datos=list(input("Dame el id nombre,telefono, email, ciudad,direccion todos separados por , ").split(","))
-        actualizar_users(int(datos[0]),datos[1].strip(),int(datos[2]),datos[3].strip(),datos[4].strip(),datos[5].strip())
+        y=int(input("""Que datos te gustaria actualizar
+                    0.Todos
+                    1.Telefono
+                    2.Email
+                    Oprime cualquier numero para regresar al menu anterior
+                    Elige uno"""))
+        if y == 0:
+            datos=list(input("Se modifica todo asi que dame el id ,telefono, email, ciudad,direccion todos separados por , ").split(","))
+            actualizar_users(int(datos[0]),int(datos[1]),datos[2].strip,datos[3].strip(),datos[4].strip())
+            continue
+        elif y == 1:
+            datos=list(input("Se modifica el telefono asi que danos la id y el telefono separada por una ,").split(","))
+            actualizar_telefono(int(datos[0]), int(datos[1]))
+            continue
+        elif y == 2:
+            datos=list(input("Se modifica el telefono asi que danos la id y el email separada por una ,").split(","))
+            actualizar_email(int(datos[0]), datos[1])
+        else:
+            print("Se regresara a la pantalla anterior")
+            break
+            
         continue
     elif x==4:
         datos=int(input("Que usuario quiere borrar? "))
