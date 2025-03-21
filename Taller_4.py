@@ -44,11 +44,11 @@ Que te gustaria hacer en la base de datos.
         continue
     elif x==3:
         y=int(input("""Que datos te gustaria actualizar
-                    0.Todos
-                    1.Telefono
-                    2.Email
-                    Oprime cualquier numero para regresar al menu anterior
-                    Elige uno"""))
+   0.Todos
+   1.Telefono
+   2.Email
+   Oprime cualquier numero para regresar al menu anterior
+   Elige uno"""))
         if y == 0:
             datos=list(input("Se modifica todo asi que dame el id ,telefono, email, ciudad,direccion todos separados por , ").split(","))
             actualizar_users(int(datos[0]),int(datos[1]),datos[2].strip,datos[3].strip(),datos[4].strip())
@@ -62,7 +62,7 @@ Que te gustaria hacer en la base de datos.
             actualizar_email(int(datos[0]), datos[1])
         else:
             print("Se regresara a la pantalla anterior")
-            break
+            continue
             
         continue
     elif x==4:
