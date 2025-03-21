@@ -1,8 +1,10 @@
+#Se importa la base de datos para luego ser conectada y creada
 import sqlite3
 con = sqlite3.connect("DataBase.db")
 cur = con.cursor()
 cur.execute("""CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,telefono INTEGER,email TEXT,ciudad TEXT,direccion TEXT)""")
 con.commit()
+#Se crean las funciones CRUD
 def create_users(name,telefono,email,ciudad,direccion):
     cur.execute("INSERT INTO users(name,telefono,email,ciudad,direccion) VALUES (?,?,?,?,?)",(name,telefono,email,ciudad,direccion))
     con.commit()
@@ -21,7 +23,7 @@ def actualizar_email(id,email):
 def borrar_users(id):
     cur.execute("DELETE FROM users WHERE id =?",(id,))
     con.commit()
-    
+#La interfaz del usuario con todas las opciones que este puede hacer
 while True:
     x=int(input("""
 Que te gustaria hacer en la base de datos.
